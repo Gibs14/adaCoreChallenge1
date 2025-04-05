@@ -59,10 +59,11 @@ struct TenantCard: View {
                 }
             }
         }
+        .padding(8)
 
     }
 }
 
 #Preview {
-    TenantCard(tenant: Tenant(name: "Tenant A", ImageName: "exDummy", Description: "Ini Deskripsi", Contact: "0812", avgWaitTime: 15, queueTime: 5, minPrice: 10, maxPrice: 15))
+    TenantCard(tenant: Tenant(menus: arrMenuTA.menu, name: "Tenant A", ImageName: "exDummy", Description: "Ini Deskripsi", Contact: "0812", avgWaitTime: 15, queueTime: 5, minPrice: 10, maxPrice: 15))
 }
