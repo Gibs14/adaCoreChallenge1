@@ -27,7 +27,7 @@ struct SummaryCard: View {
             Text("Rp\(menu.price * menu.quantity).000")
                 .fontWeight(.bold)
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 30)
         .padding(.vertical, 8)
         .background(Color(.systemGray6))
         .cornerRadius(8)

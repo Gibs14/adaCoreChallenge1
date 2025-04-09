@@ -15,34 +15,34 @@ struct MenuCard: View {
         HStack {
             Image(menu.ImageName)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-            
-            Spacer()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 120, height: 110)
+                .clipped()
             
             VStack(alignment: .leading) {
                 Text(menu.name)
                     .font(.headline)
-                    .italic()
                 
                 HStack {
                     Text(menu.Description)
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                    
                 }
                 HStack {
                     Image(systemName: "dollarsign.circle.fill")
                         .foregroundColor(.orange)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 14, height: 14)
+                        .frame(width: 2, height: 2)
+                        .padding(.trailing, 6)
                     Text("Rp. \(menu.price).000")
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundColor(.gray)
+                        .font(.subheadline)
                 }
+                .padding(.top, 8)
+                    .padding(.leading, 8)
             }
+            Spacer()
+            
             HStack{
-                Spacer()
                 if menu.quantity > 0 {
                     HStack(spacing: 10) {
                         Button {
@@ -56,7 +56,7 @@ struct MenuCard: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 12, height: 12)
-                                .foregroundColor(.black)
+                                .foregroundColor(.purple)
                         }
                         
                         Text("\(menu.quantity)")
@@ -69,7 +69,7 @@ struct MenuCard: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 12, height: 12)
-                                .foregroundColor(.black)
+                                .foregroundColor(.purple)
                         }
                     }
                     .padding(.horizontal, 8)
@@ -84,19 +84,19 @@ struct MenuCard: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 15, height: 15)
-                            .foregroundColor(.black)
+                            .foregroundColor(.purple)
                     }
                     .padding(.horizontal, 20)
                 }
             }
         }
-        .alert("CONFIRMATION", isPresented: $showDeleteConfirmation) {
-            Button("Delete", role: .destructive) {
+        .alert("Hapus?", isPresented: $showDeleteConfirmation) {
+            Button("Hapus", role: .destructive) {
                 menu.quantity = 0
             }
-            Button("Cancel", role: .cancel) {}
+            Button("Batal", role: .cancel) {}
         } message: {
-            Text("Are you sure you want to remove this item?")
+            Text("Apakah anda yakin ingin menghapus menu ini?")
                 .font(.body)
         }
     }

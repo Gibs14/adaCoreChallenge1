@@ -13,13 +13,15 @@ struct TenantCard: View {
         HStack{
             Image(tenant.ImageName)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 110, height: 110)
+                .clipped()
             VStack(alignment: .leading){
                 
                 Text(tenant.name)
                     .font(.headline)
-                    .italic()
+                    .foregroundColor(.black)
+
     
                 Text(tenant.Description)
                     .font(.subheadline)
@@ -30,36 +32,43 @@ struct TenantCard: View {
                     Image(systemName: "phone.circle")
                         .foregroundColor(.black)
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 14, height: 14)
+                        .frame(width: 2, height: 2)
+                        .padding(.trailing, 6)
                     Text(tenant.Contact)
                         .font(.subheadline)
                         .foregroundColor(.gray)
-                }
+                }.padding(.leading, 8)
+                    .padding(.top, -3)
                
                 HStack{
                     HStack{
                         Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                             .foregroundColor(.blue)
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 14, height: 14)
+                            .frame(width: 2, height: 2)
+                            .padding(.trailing, 6)
                         Text("\((tenant.avgWaitTime+tenant.queueTime)/2) mins")
-                            .font(.system(size: 12, weight: .regular))
+                            .font(.subheadline)
                             .foregroundColor(.gray)
                     }
                     HStack{
                         Image(systemName: "dollarsign.circle.fill")
                             .foregroundColor(.orange)
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 14, height: 14)
+                            .frame(width: 2, height: 2)
+                            .padding(.trailing, 6)
                         Text("\(tenant.minPrice)k - \(tenant.maxPrice)k")
-                            .font(.system(size: 12, weight: .regular))
+                            .font(.subheadline)
                             .foregroundColor(.gray)
-                    }
+                    }.padding(.leading, 15)
                     Spacer()
-                }
+                }.padding(.leading, 8)
+                    .padding(.top, -3)
+                
             }
+            .padding(.leading, 8)
         }
-        .padding(8)
+        .background(Color(red: 236/255, green: 231/255, blue: 243/255))
 
     }
 }

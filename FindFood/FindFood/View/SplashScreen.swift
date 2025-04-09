@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SplashScreen.swift
 //  FindFood
 //
 //  Created by Gibran Shevaldo on 24/03/25.
@@ -18,27 +18,27 @@ struct SplashScreenView: View {
         } else {
             ZStack {
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.orange, Color.yellow]),
+                    gradient: Gradient(colors: [Color(red: 236/255, green: 231/255, blue: 243/255), Color.purple]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
                 
                 VStack {
-                    Image(systemName: "fork.knife.circle.fill")
+                    Image("AppLogo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 120, height: 120)
                         .foregroundColor(.white)
                         .shadow(radius: 10)
                     
-                    Text("FInd Food")
+                    Text("FindFood")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding(.top, 20)
                     
-                    Text("Find Your Favorite Food")
+                    Text("Temukan Makanan Kesukaanmu")
                         .font(.headline)
                         .foregroundColor(.white.opacity(0.9))
                         .padding(.top, 5)

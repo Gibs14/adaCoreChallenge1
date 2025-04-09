@@ -1,5 +1,5 @@
 //
-//  MenuView.swift
+//  MenuViewA.swift
 //  FindFood
 //
 //  Created by Gibran Shevaldo on 25/03/25.
@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MenuViewA: View {
+    let tenantName: String
     @State private var searchText: String = ""
     @State private var menus = arrMenuTA.menu
     
@@ -32,79 +33,31 @@ struct MenuViewA: View {
         menuCategories.keys.sorted { $0 == "Popular" ? true : $1 != "Popular" && $0 < $1 }
     }
     
-    init() { // Setup Color for NavBar (Background and Text)
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        
-        // Create gradient layer
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            UIColor(named: "NavBarStart")?.cgColor ?? UIColor.blue.cgColor,
-            UIColor(named: "NavBarEnd")?.cgColor ?? UIColor.purple.cgColor
-        ]
-        
-        // Top to Bottom Gradient Styler
-        gradient.startPoint = CGPoint(x: 0.5, y: 0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1)
-        gradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 96)
-        
-        // Convert to UIImage
-        let renderer = UIGraphicsImageRenderer(size: gradient.bounds.size)
-        let gradientImage = renderer.image { ctx in
-            gradient.render(in: ctx.cgContext)
-        }
-        
-        // Apply to navigation bar
-        appearance.backgroundImage = gradientImage
-       appearance.titleTextAttributes = [
-           .foregroundColor: UIColor.white,
-           .font: UIFont.systemFont(ofSize: 20, weight: .bold)
-       ]
-       
-       // For search bar text and placeholder
-       UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [
-           .foregroundColor: UIColor.white
-       ]
-       UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(
-           string: "Search menu...",
-           attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.7)]
-       )
-       
-       // For search bar icon
-       UISearchBar.appearance().tintColor = .white
-       
-       // Apply appearance
-       UINavigationBar.appearance().standardAppearance = appearance
-       UINavigationBar.appearance().scrollEdgeAppearance = appearance
-       UINavigationBar.appearance().tintColor = .white
-    }
-    
     var body: some View {
         NavigationStack {
             mainContentView
-                .navigationTitle("Choose Menu!")
-                .searchable(text: $searchText, prompt: "Search menu...")
-            
+                .navigationTitle(tenantName)
+                .searchable(text: $searchText, prompt: "Cari menu...")
         }
     }
-    
+
     private var mainContentView: some View {
         ZStack{
             VStack {
-                quantityHeader
                 menuContent
+                Spacer(minLength: 65.0)
             }
             VStack {
                 Spacer()
                 
                 ZStack{
-                    Color("TabBar")
+                    Color(red: 236/255, green: 231/255, blue: 243/255)
                         .frame(height: 100)
                     HStack{
-                        VStack{
+                        VStack(alignment: .leading){
                             HStack{
-                                Text("Total price")
-                                    .font(.system(size: 20))
+                                Text("Harga total")
+                                    .font(.system(size: 16))
                                     .colorInvert()
                                 Text("|")
                                     .colorInvert()
@@ -123,27 +76,25 @@ struct MenuViewA: View {
                         Spacer()
                         NavigationLink {
                             SummaryView(
-                                originalMenus: $menus,  // Binding ke data asli
+                                originalMenus: $menus,
                                 selectedMenus: menus.filter { $0.quantity > 0 }
                             )
                         } label: {
-                            Text("Details")
-                                .foregroundStyle(Color.black)
-                                .padding(.horizontal, 30)
+                            Text("DETAIL")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(height: 44)
+                                .background(Color.purple)
+                                .cornerRadius(10)
+                                .shadow(radius: 3)
+                                .padding(.trailing, 20)
                         }
-                            .padding(.horizontal, 30)
+                        .buttonStyle(.plain)
+                        .padding(.horizontal, 10)
                     }
                 }
             }.ignoresSafeArea()
-        }
-    }
-    
-    private var quantityHeader: some View {
-        HStack {
-            Spacer()
-            Text("Qty.")
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
         }
     }
     
@@ -185,7 +136,7 @@ struct MenuViewA: View {
                     searchResultsView
                 }
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 15)
         }
     }
     
@@ -222,7 +173,7 @@ struct MenuViewA: View {
     }
     
     private var noResultsView: some View {
-        Text("No menu found")
+        Text("Menu tidak ditemukan")
             .multilineTextAlignment(.center)
             .foregroundColor(.gray)
     }
@@ -230,12 +181,12 @@ struct MenuViewA: View {
     // Helper function untuk mendapatkan binding ke menu
     private func binding(for menu: Menu) -> Binding<Menu> {
         guard let index = menus.firstIndex(where: { $0.name == menu.name }) else {
-            fatalError("Menu not found")
+            fatalError("Menu tidak ditemukan")
         }
         return $menus[index]
     }
 }
 
 #Preview {
-    MenuViewA()
+    MenuViewA(tenantName: "tenan")
 }
